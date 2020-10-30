@@ -262,7 +262,11 @@ class Photo(object):
 			gc.collect()
 		image.thumbnail((size, size), Image.ANTIALIAS)
 		try:
-			image.save(thumb_path, "JPEG", quality=88)
+			if 'PRIV' in original_path.upper():
+				image_quality=1
+			else:
+				image_quality=96
+			image.save(thumb_path, "JPEG", quality=image_quality)
 		except KeyboardInterrupt:
 			try:
 				os.unlink(thumb_path)
